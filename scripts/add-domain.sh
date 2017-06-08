@@ -14,8 +14,8 @@ server {
     server_name $1;
     root /var/www/vhosts/$1/htdocs;
     index index.php;
-    access_log /var/www/vhosts/$1/access.log;
-    error_log /var/www/vhosts/$1/error.log;
+    access_log /var/www/vhosts/$1/logs/access.log;
+    error_log /var/www/vhosts/$1/logs/error.log;
     
     location / {
         fastcgi_pass   $1backend;
