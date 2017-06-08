@@ -53,9 +53,13 @@ pm.min_spare_servers = 5
 
 pm.max_spare_servers = 35
 slowlog = /var/log/php-fpm/www-slow.log
-php_admin_value[error_log] = /var/log/php-fpm/www-error.log
+php_admin_value[error_log] = /var/www/vhosts/$1/fpm-error.log
 php_admin_flag[log_errors] = on
 
 php_value[session.save_handler] = files
-php_value[session.save_path] = /var/lib/php/session
+php_value[session.save_path] = /var/www/vhosts/$1/tmp
 EOF
+
+mkdir /var/www/vhosts/$1/htdocs
+mkdir /var/www/vhosts/$1/logs
+mkdir /var/www/vhosts/$1/tmp

@@ -4,9 +4,11 @@ sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch
 sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 
 sudo yum update -y
-sudo yum install nginx php71w-* --skip-broken -y
+sudo yum install vim nano nginx php71w-* --skip-broken -y
 
-sudo sh /vagrant/scripts/add-domain.sh inspirehousekeeping.com
+while read domain; do
+sudo sh /vagrant/scripts/add-domain.sh "${domain}"
+done </vagrant/domains.txt
 
 sudo chmod -R 777 /var/log/php-fpm
 sudo service php-fpm restart
