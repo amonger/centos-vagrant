@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo "Adding repositories"
+echo "Adding Repositories"
 sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 
-echo "Installing dependencies"
+echo "Installing Dependencies"
 sudo yum update -y
 sudo yum install fortune-mod cowsay vim nano ruby nodejs nginx mariadb-server php71w-* --skip-broken -y
 
