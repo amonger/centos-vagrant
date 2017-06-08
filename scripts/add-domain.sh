@@ -3,6 +3,8 @@
 sudo groupadd -f $1
 sudo id -u $1 &>/dev/null || useradd -d /var/www/vhosts/$1 -g $1 $1
 
+if [ ! -e /etc/nginx/conf.d/$1.conf ]
+then
 cat > /etc/nginx/conf.d/$1.conf <<EOF
 upstream $1backend {
     server unix:/var/run/php-fcgi-$1.sock;
@@ -16,7 +18,7 @@ server {
     index index.php;
     access_log /var/www/vhosts/$1/logs/access.log;
     error_log /var/www/vhosts/$1/logs/error.log;
-    
+
     location / {
         fastcgi_pass   $1backend;
         fastcgi_index  index.php;
@@ -36,6 +38,10 @@ server {
 }
 
 EOF
+fi
+
+if [ ! -e /etc/php-fpm.d/$1.conf ]
+then
 
 cat > /etc/php-fpm.d/$1.conf <<EOF
 [$1]
@@ -59,6 +65,8 @@ php_admin_flag[log_errors] = on
 php_value[session.save_handler] = files
 php_value[session.save_path] = /var/www/vhosts/$1/tmp
 EOF
+
+fi
 
 mkdir -p /var/www/vhosts/$1/htdocs
 mkdir -p /var/www/vhosts/$1/logs
