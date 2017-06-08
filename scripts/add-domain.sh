@@ -60,6 +60,6 @@ php_value[session.save_handler] = files
 php_value[session.save_path] = /var/www/vhosts/$1/tmp
 EOF
 
-mkdir /var/www/vhosts/$1/htdocs
-mkdir /var/www/vhosts/$1/logs
-mkdir /var/www/vhosts/$1/tmp
+mkdir -p /var/www/vhosts/$1/htdocs
+mkdir -p /var/www/vhosts/$1/logs
+mkdir -p /var/www/vhosts/$1/tmp
