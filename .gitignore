@@ -1,4 +1,4 @@
 /Sites
 /.vagrant
-/.config/nginx
-/.config/php-fpm
+/config/nginx
+/config/php-fpm
