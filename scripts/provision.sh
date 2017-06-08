@@ -6,8 +6,7 @@ sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 sudo yum update -y
 sudo yum install nginx php71w-* --skip-broken -y
 
-sudo groupadd -f inspirehousekeeping.com
-sudo id -u inspirehousekeeping.com &>/dev/null || useradd -d /var/www/vhosts/inspirehousekeeping.com -g inspirehousekeeping.com inspirehousekeeping.com
+sudo sh /vagrant/scripts/add-domain.sh inspirehousekeeping.com
 
 sudo chmod -R 777 /var/log/php-fpm
 sudo service php-fpm restart
