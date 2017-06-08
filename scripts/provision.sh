@@ -15,6 +15,9 @@ php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7
 php composer-setup.php --install-dir=/usr/sbin --filename=composer
 php -r "unlink('composer-setup.php');"
 
+echo "Configuring DB"
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+
 echo "Configuring Domains"
 while read domain; do
 	echo "Adding domain ${domain}"
