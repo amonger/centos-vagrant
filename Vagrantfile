@@ -7,7 +7,7 @@
 # you're doing.
 Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "192.168.50.100"
-  config.vm.box = "https://github.com/CommanderK5/packer-centos-template/releases/download/0.7.2/vagrant-centos-7.2.box"
+  config.vm.box = "boxcutter/centos72"
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 3306, host: 3306
   config.vm.synced_folder "./Sites", "/var/www/vhosts"
