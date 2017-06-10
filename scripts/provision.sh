@@ -18,6 +18,16 @@ php -r "unlink('composer-setup.php');"
 echo "Configuring DB"
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
 
+mysql -u root -proot < /databases/backup.sql
+
+#write out current crontab
+crontab -l > mycron
+#echo new cron into cron file
+echo "1 * * * * mysqldump --all-databases --result-file=/databases/backup.sql" >> mycron
+#install new cron file
+crontab mycron
+rm mycron
+
 echo "Configuring Domains"
 while read domain; do
 	echo "Adding domain ${domain}"

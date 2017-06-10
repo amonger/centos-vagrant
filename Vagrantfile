@@ -13,6 +13,7 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "./Sites", "/var/www/vhosts"
   config.vm.synced_folder "./config/nginx", "/etc/nginx/conf.d"
   config.vm.synced_folder "./config/php-fpm", "/etc/php-fpm.d"
+  config.vm.synced_folder "./config/databases", "/databases"
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "512"
   end
