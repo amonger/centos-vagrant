@@ -15,19 +15,6 @@ php -r "if (hash_file('SHA384', 'composer-setup.php') === '669656bab3166a7aff8a7
 php composer-setup.php --install-dir=/usr/sbin --filename=composer
 php -r "unlink('composer-setup.php');"
 
-echo "Configuring DB"
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
-
-mysql -u root -proot < /databases/backup.sql
-
-#write out current crontab
-crontab -l > mycron
-#echo new cron into cron file
-echo "1 * * * * mysqldump --all-databases --result-file=/databases/backup.sql" >> mycron
-#install new cron file
-crontab mycron
-rm mycron
-
 echo "Configuring Domains"
 while read domain; do
 	echo "Adding domain ${domain}"
@@ -44,6 +31,19 @@ echo "Starting Services"
 sudo service php-fpm start
 sudo service nginx start
 sudo service mariadb start
+
+echo "Configuring DB"
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+
+sudo mysql -u root < /databases/backup.sql
+
+#write out current crontab
+crontab -l > mycron
+#echo new cron into cron file
+echo "* * * * * mysqldump --all-databases --result-file=/databases/backup.sql" >> mycron
+#install new cron file
+crontab mycron
+rm mycron
 
 fortune | cowsay -f stegosaurus
 
