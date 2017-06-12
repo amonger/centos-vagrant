@@ -7,7 +7,7 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 
 echo "Installing Dependencies"
 sudo yum update -y
-sudo yum install fortune-mod cowsay vim nano ruby nodejs nginx mariadb-server php71w-* --skip-broken -y
+sudo yum install git fortune-mod cowsay vim nano ruby nodejs nginx mariadb-server php71w-* --skip-broken -y
 
 echo "Articulating Splines"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"

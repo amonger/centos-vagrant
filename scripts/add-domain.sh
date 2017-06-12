@@ -63,7 +63,7 @@ php_admin_value[error_log] = /var/www/vhosts/$1/fpm-error.log
 php_admin_flag[log_errors] = on
 
 php_value[session.save_handler] = files
-php_value[session.save_path] = /var/www/vhosts/$1/tmp
+php_value[session.save_path] = /var/log/php-fpm
 EOF
 
 fi
