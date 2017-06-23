@@ -45,5 +45,8 @@ echo "* * * * * mysqldump --all-databases --result-file=/databases/backup.sql" >
 crontab mycron
 rm mycron
 
+sudo echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+sudo echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
 fortune | cowsay -f stegosaurus
 
