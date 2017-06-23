@@ -8,6 +8,10 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 echo "Installing Dependencies"
 sudo yum update -y
 sudo yum install git fortune-mod cowsay vim nano ruby nodejs nginx mariadb-server php71w-* --skip-broken -y
+sudo yum install gcc kernel-devel kernel-headers dkms make bzip2 perl -y
+
+KERN_DIR=/usr/src/kernels/`uname -r`
+export KERN_DIR
 
 echo "Articulating Splines"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
@@ -40,7 +44,7 @@ sudo mysql -u root < /databases/backup.sql
 #write out current crontab
 crontab -l > mycron
 #echo new cron into cron file
-echo "* * * * * mysqldump --all-databases --result-file=/databases/backup.sql" >> mycron
+echo "*/5 * * * * mysqldump --all-databases --result-file=/databases/backup.sql" >> mycron
 #install new cron file
 crontab mycron
 rm mycron
