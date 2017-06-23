@@ -61,6 +61,12 @@ If all your dependencies are installed, change into the Vagrant directory, and t
 vagrant up
 ```
 
+You'll also want to install the virtualbox plugin after this is done.
+
+```bash
+vagrant plugin install vagrant-vbguest
+```
+
 This will bring up the machine, download the VM, and provision the system.
 You might see some errors, these are mainly going to be errors related to keysigning, which can be ignored.
 
