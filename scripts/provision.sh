@@ -33,7 +33,7 @@ sudo service nginx start
 sudo service mariadb start
 
 echo "Configuring DB"
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
 
 sudo mysql -u root < /databases/backup.sql
 
