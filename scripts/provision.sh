@@ -33,8 +33,11 @@ sudo chown nginx:nginx /run/*.sock
 
 echo "Starting Services"
 sudo service php-fpm start
+sudo chkconfig php-fpm on
 sudo service nginx start
+sudo chkconfig nginx on
 sudo service mariadb start
+sudo chkconfig mariadb on
 
 echo "Configuring DB"
 mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;"
