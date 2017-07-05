@@ -8,7 +8,9 @@ curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 echo "Installing Dependencies"
 sudo yum update -y
 sudo yum install git fortune-mod cowsay vim nano ruby nodejs nginx mariadb-server php71w-* --skip-broken -y
-sudo yum install gcc kernel-devel-$(uname) kernel-headers dkms make bzip2 perl -y
+sudo yum install gcc kernel-devel-$(uname) kernel-headers dkms make bzip2 perl dos2unix -y
+
+find /vagrant \( -iname '*.txt' -o -iname '*.sh' \) -exec dos2unix {} \;
 
 KERN_DIR=/usr/src/kernels/`uname -r`
 export KERN_DIR
@@ -21,26 +23,26 @@ php -r "unlink('composer-setup.php');"
 
 echo "Configuring Domains"
 while read domain; do
-	echo "Adding domain ${domain}"
+    echo "Adding domain ${domain}"
     if [ -f "/var/www/vhosts/${domain}/htdocs/composer.json" ]; then
         mkdir -p /home/vagrant/${domain}/vendor
         mkdir -p /var/www/vhosts/${domain}/htdocs/vendor
         sudo mount --bind "/home/vagrant/${domain}/vendor" "/var/www/vhosts/${domain}/htdocs/vendor"
+	chown -R vagrant:vagrant /home/vagrant/${domain}
     fi
 
     if [ -f "/var/www/vhosts/${domain}/htdocs/package.json" ]; then
        mkdir -p /home/vagrant/${domain}/node_modules
        mkdir -p /var/www/vhosts/${domain}/htdocs/node_modules
        sudo mount --bind "/home/vagrant/${domain}/node_modules"  "/var/www/vhosts/${domain}/htdocs/node_modules"
+       chown -R vagrant:vagrant /home/vagrant/${domain}
     fi
-
-    chown -R vagrant:vagrant /home/vagrant/${domain}
 
 sudo sh /vagrant/scripts/add-domain.sh "${domain}"
 done </vagrant/domains.txt
 
 echo "updating permissions"
-sudo chmod -r 777 /var/log/php-fpm
+sudo chmod -R 777 /var/log/php-fpm
 sudo service php-fpm restart
 sudo service php-fpm reload
 sudo chown nginx:nginx /run/*.sock
