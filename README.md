@@ -60,12 +60,25 @@ If all your dependencies are installed, change into the Vagrant directory, and t
 ```bash
 vagrant up
 ```
-
-You'll also want to install the virtualbox plugin after this is done.
+You might get an error about mounting directories. This is because the vm's virtualbox plugin is out of date. Run
 
 ```bash
 vagrant plugin install vagrant-vbguest
 ```
+
+Then
+
+```bash
+vagrant reload
+```
+
+On thing i need to fix is adding nginx to the vagrant group to fix binding issues. Until then you'll need to
+
+```bash
+useradd nginx
+```
+
+After it tells you that it cant find user nginx.
 
 This will bring up the machine, download the VM, and provision the system.
 You might see some errors, these are mainly going to be errors related to keysigning, which can be ignored.
